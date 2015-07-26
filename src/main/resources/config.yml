@@ -1,0 +1,19 @@
+#SetSpawn by artur9010
+
+permissions:
+    disable: false
+teleport:
+    cooldown: 5
+    cooldown_enabled: false
+messages:
+    spawn: "Teleported to spawn"
+    spawnset: "Spawn set!"
+    pleasewait: "Please wait {1} seconds."
+    canceled: "Teleportation canceled."
+    permissions: "No permissions."
+effects:
+    mobspawner: false
+sound:
+    level: false
+    portal: false
+    enderdragon: false
