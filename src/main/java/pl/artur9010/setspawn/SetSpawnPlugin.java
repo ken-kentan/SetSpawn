@@ -1,11 +1,5 @@
 package pl.artur9010.setspawn;
 
-/**
- * Created by artur on 26.07.15.
- * SetSpawn
- * @author artur9010
- * @url http://artur9010.pl/
- */
 import org.bukkit.Bukkit;
 import org.bukkit.Effect;
 import org.bukkit.Sound;
@@ -21,6 +15,12 @@ import pl.artur9010.setspawn.listeners.TeleportCancelListener;
 
 import java.io.IOException;
 
+/**
+ * Created by artur on 26.07.15.
+ * SetSpawn
+ * @author artur9010
+ * @url http://artur9010.pl/
+ */
 public class SetSpawnPlugin extends JavaPlugin{
     protected static SetSpawnPlugin plugin;
     public TeleportCancelListener teleportCancelListener;
