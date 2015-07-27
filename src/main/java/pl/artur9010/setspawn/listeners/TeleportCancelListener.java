@@ -31,19 +31,24 @@ public class TeleportCancelListener implements Listener {
         Location to = event.getTo();
         if ((from.getBlockX() != to.getBlockX()) || (from.getBlockY() != to.getBlockY()) || (from.getBlockZ() != to.getBlockZ()) || (from.getWorld() != to.getWorld())) {
             Player player = event.getPlayer();
-            if (this.playerTeleportLocation.get(player) != null)
+            if (this.playerTeleportLocation.get(player) != null){
                 (this.playerTeleportLocation.remove(player)).cancel();
+                player.sendMessage(plugin.getMessage("messages.canceled"));
+            }
+
 
         }
     }
 
     @EventHandler(priority=EventPriority.HIGHEST, ignoreCancelled=true)
     public void onPlayerDamage(EntityDamageEvent event){
-        if ((event.getEntity() instanceof Player))
-        {
+        if ((event.getEntity() instanceof Player)){
             Player player = (Player)event.getEntity();
-            if (this.playerTeleportLocation.get(player) != null)
+            if (this.playerTeleportLocation.get(player) != null){
                 (this.playerTeleportLocation.remove(player)).cancel();
+                player.sendMessage(plugin.getMessage("messages.canceled"));
+            }
+
         }
     }
 }

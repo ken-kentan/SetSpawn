@@ -1,7 +1,7 @@
 author: artur9010
 name: SetSpawn
 main: pl.artur9010.setspawn.SetSpawnPlugin
-version: 2.0
+version: 2.1
 commands:
   spawn:
     description: Teleport to spawn
