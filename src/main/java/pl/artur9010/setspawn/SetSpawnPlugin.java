@@ -124,7 +124,7 @@ public class SetSpawnPlugin extends JavaPlugin{
                 Player p = (Player)sender;
                 Location spawn = getSpawnLocation();
                 if(spawn == null){
-                    p.sendMessage("SPAWN IS NOT SET!!!");
+                    p.sendMessage("[Error] Spawn is not set.");
                     p.sendMessage("If you are Administrator, you can set spawn using /setspawn.");
                     return true;
                 }
