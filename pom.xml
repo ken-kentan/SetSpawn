@@ -29,14 +29,6 @@
             <id>spigot-repo</id>
             <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
         </repository>
-        <repository>
-            <id>overcast-repo</id>
-            <url>https://repo.oc.tc/content/groups/public</url>
-        </repository>
-        <repository>
-            <id>Plugin Metrics</id>
-            <url>http://repo.mcstats.org/content/repositories/public</url>
-        </repository>
     </repositories>
 
     <dependencies>
