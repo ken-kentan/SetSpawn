@@ -29,7 +29,7 @@ public class SetSpawnPlugin extends JavaPlugin{
     public ConfigsManager cm;
 
     public void onEnable() {
-        System.console().printf("===[ SetSpawn v2.1 by artur9010 ]===\n");
+        System.console().printf("===[ SetSpawn v2.2.1 by artur9010 ]===\n");
         System.console().printf("Thanks for downloading SetSpawn!\n");
         System.console().printf("http://dev.bukkit.org/bukkit-plugins/setspawn\n");
         System.console().printf("=====================================\n");
@@ -89,16 +89,14 @@ public class SetSpawnPlugin extends JavaPlugin{
             plugin.teleportCancelListener.playerTeleportLocation.remove(player);
         }
 
-        BukkitTask task = plugin.getServer().getScheduler().runTaskLater(plugin, new Runnable(){
-            public void run(){
-                if (player.isOnline()){
-                    player.teleport(location);
-                    if (messageAfterTp != null){
-                        player.sendMessage(messageAfterTp);
-                    }
-                    if (postTeleport != null){
-                        postTeleport.run();
-                    }
+        BukkitTask task = plugin.getServer().getScheduler().runTaskLater(plugin, () -> {
+            if (player.isOnline()){
+                player.teleport(location);
+                if (messageAfterTp != null){
+                    player.sendMessage(messageAfterTp);
+                }
+                if (postTeleport != null){
+                    postTeleport.run();
                 }
             }
         }, l * 20L);
@@ -157,31 +155,31 @@ public class SetSpawnPlugin extends JavaPlugin{
                     }
                     /* === */
                     if (cm.getConfig("config").getBoolean("sound.level")){
-                        p.playSound(loc, Sound.LEVEL_UP, 1.0F, 0.0F);
+                        p.playSound(loc, Sound.ENTITY_PLAYER_LEVELUP, 1.0F, 0.0F);
                     }
                     if (cm.getConfig("config").getBoolean("sound.portal")){
-                        p.playSound(loc, Sound.PORTAL_TRAVEL, 1.0F, 0.0F);
+                        p.playSound(loc, Sound.BLOCK_PORTAL_TRAVEL, 1.0F, 0.0F);
                     }
                     if (cm.getConfig("config").getBoolean("sound.enderdragon")){
-                        p.playSound(loc, Sound.ENDERDRAGON_DEATH, 1.0F, 0.0F);
+                        p.playSound(loc, Sound.ENTITY_ENDERDRAGON_DEATH, 1.0F, 0.0F);
                     }
                     if (cm.getConfig("config").getBoolean("sound.chest_open")){
-                        p.playSound(loc, Sound.CHEST_OPEN, 1.0F, 0.0F);
+                        p.playSound(loc, Sound.BLOCK_CHEST_OPEN, 1.0F, 0.0F);
                     }
                     if (cm.getConfig("config").getBoolean("sound.chest_close")){
-                        p.playSound(loc, Sound.CHEST_CLOSE, 1.0F, 0.0F);
+                        p.playSound(loc, Sound.BLOCK_CHEST_CLOSE, 1.0F, 0.0F);
                     }
                     if (cm.getConfig("config").getBoolean("sound.anvil_break")){
-                        p.playSound(loc, Sound.ANVIL_BREAK, 1.0F, 0.0F);
+                        p.playSound(loc, Sound.BLOCK_ANVIL_BREAK, 1.0F, 0.0F);
                     }
                     if (cm.getConfig("config").getBoolean("sound.anvil_land")){
-                        p.playSound(loc, Sound.ANVIL_LAND, 1.0F, 0.0F);
+                        p.playSound(loc, Sound.BLOCK_ANVIL_LAND, 1.0F, 0.0F);
                     }
                     if (cm.getConfig("config").getBoolean("sound.anvil_use")){
-                        p.playSound(loc, Sound.ANVIL_USE, 1.0F, 0.0F);
+                        p.playSound(loc, Sound.BLOCK_ANVIL_USE, 1.0F, 0.0F);
                     }
                     if (cm.getConfig("config").getBoolean("sound.explode")){
-                        p.playSound(loc, Sound.EXPLODE, 1.0F, 0.0F);
+                        p.playSound(loc, Sound.ENTITY_GENERIC_EXPLODE, 1.0F, 0.0F);
                     }
                 }else{
                     p.sendMessage(getMessage("messages.permissions"));
