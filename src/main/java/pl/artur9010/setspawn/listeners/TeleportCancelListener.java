@@ -18,7 +18,7 @@ import pl.artur9010.setspawn.SetSpawnPlugin;
 
 public class TeleportCancelListener implements Listener {
     SetSpawnPlugin plugin;
-    public HashMap<Player, BukkitTask> playerTeleportLocation = new HashMap();
+    public HashMap<Player, BukkitTask> playerTeleportLocation = new HashMap<>();
 
     public TeleportCancelListener(SetSpawnPlugin plugin){
         this.plugin = plugin;

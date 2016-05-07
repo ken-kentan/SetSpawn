@@ -1,25 +1,18 @@
 #SetSpawn by artur9010
 
-permissions:
-    disable: false
+# Sound list: https://hub.spigotmc.org/javadocs/spigot/org/bukkit/Sound.html
+# Effect list: https://hub.spigotmc.org/javadocs/spigot/org/bukkit/Effect.html
+
 teleport:
     cooldown: 5
     cooldown_enabled: false
     everyjoin: false
+    sound:
+      enabled: false
+      sound: ENTITY_PLAYER_LEVELUP
+    effect:
+      enabled: false
+      effect: SMOKE
+      power: 6
 messages:
     spawn: true
-effects:
-    mobspawner: false
-    smoke: false
-    slime: false
-    potion: false
-sound:
-    level: false
-    portal: false
-    enderdragon: false
-    chest_open: false
-    chest_close: false
-    anvil_break: false
-    anvil_land: false
-    anvil_use: false
-    explode: false
