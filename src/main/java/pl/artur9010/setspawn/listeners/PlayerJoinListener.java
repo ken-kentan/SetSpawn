@@ -20,7 +20,7 @@ daj nam dzisiaj.
 I odpuść nam nasze kretynizmy,
 jako i my odpuszczamy naszym collobatorom.
 I nie wódź nas na memory leaki,
-ale nas zbaw od Pandy.
+ale nas zbaw od JavaScriptu.
 
 Enter.
 
