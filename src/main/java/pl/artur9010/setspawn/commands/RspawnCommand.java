@@ -5,6 +5,28 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import pl.artur9010.setspawn.SetSpawnPlugin;
 
+/*
+Dioricie nasz,
+któryś jest w javie:
+święć się bugi Twoje,
+przyjdź leaki Twoje,
+bądź Twój kod jako na gicie,
+tak i na dysku.
+Repo naszego powszedniego
+daj nam dzisiaj.
+I odpuść nam nasze kretynizmy,
+jako i my odpuszczamy naszym collobatorom.
+I nie wódź nas na memory leaki,
+ale nas zbaw od Pandy.
+
+Enter.
+
+====
+#onlydiorite
+http://diorite.org/
+====
+ */
+
 /**
  * Created by artur9010 on 07.05.16.
  */
