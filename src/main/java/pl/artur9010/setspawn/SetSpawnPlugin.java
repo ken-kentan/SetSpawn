@@ -13,7 +13,9 @@ import pl.artur9010.setspawn.commands.SetSpawnCommand;
 import pl.artur9010.setspawn.commands.RspawnCommand;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * Created by artur on 26.07.15.
@@ -26,6 +28,8 @@ public class SetSpawnPlugin extends JavaPlugin{
     protected static SetSpawnPlugin plugin;
     public TeleportCancelListener teleportCancelListener;
     public PlayerJoinListener playerJoinListener;
+
+    public List<String> bannedSpawnpointNames = new ArrayList<>();
 
     public ConfigsManager cm;
 
@@ -41,6 +45,10 @@ public class SetSpawnPlugin extends JavaPlugin{
         spawnCommand = new SpawnCommand(this);
         setSpawnCommand = new SetSpawnCommand(this);
         //rspawnCommand = new RspawnCommand(this);
+
+        bannedSpawnpointNames.add("reload"); //because of /setspawn reload
+        bannedSpawnpointNames.add("list"); //because of /spawn list
+        bannedSpawnpointNames.add("delete"); //because of /setspawn delete
 
         cm = new ConfigsManager(this);
         cm.registerConfig("config", "config.yml");

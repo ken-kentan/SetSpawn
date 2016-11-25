@@ -24,11 +24,34 @@ public class SpawnCommand implements CommandExecutor {
     }
 
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-        if (!(sender instanceof Player)) {
-            sender.sendMessage(plugin.getMessage("messages.error.onlyplayer"));
-            return true;
+        Player player; //player to be teleported
+        Location spawnLocation; //location of spawn point
+        String spawn = "default";
+        if(args.length == 0){
+            if(sender instanceof Player){
+                player = (Player) sender;
+                spawnLocation = plugin.getSpawnLocation(spawn);
+                if(spawnLocation == null){
+                    player.sendMessage("that spawnpoint dosent exist"); //todo: plugin message
+                    return true;
+                }
+                //todo: teleport yourself to default spawnpoint
+            }else{
+                sender.sendMessage(plugin.getMessage("messages.error.onlyplayer"));
+            }
+        }else if(args.length == 1){
+            if(args[0].equalsIgnoreCase("list")){
+                //todo: display list of avaiable spawnpoints
+                return true;
+            }
+            //spawn spawnpoint
+            //todo: teleport yourself to diffrent spawnpoint
+        }else if(args.length == 2){
+            //spawn spawnpoint player
+            //todo: teleport other player to diffrent spawnpoint
         }
-
+        //Some cancer code!
+        /*
         Player p = (Player) sender;
         Location spawn = plugin.getSpawnLocation("default");
         if (spawn == null) {
@@ -57,6 +80,8 @@ public class SpawnCommand implements CommandExecutor {
         if (plugin.cm.getConfig("config").getBoolean("teleport.sound.enabled")) {
             p.playSound(loc, Sound.valueOf(plugin.cm.getConfig("config").getString("teleport.sound.sound")), 1.0F, 0.0F);
         }
-        return true;
+        return true;*/
+
+        return true; //todo: remove
     }
 }

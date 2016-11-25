@@ -20,26 +20,18 @@ public class PlayerJoinListener implements Listener {
 
     @EventHandler
     public void onJoin(PlayerJoinEvent event){
-        Player p = event.getPlayer();
-        if(p != null){
+        Player player = event.getPlayer();
+        if(player != null){
             if(plugin.cm.getConfig("config").getBoolean("teleport.everyjoin")){
                 Location spawn = plugin.getSpawnLocation("default");
-                if(spawn == null){
-                    p.sendMessage(ChatColor.RED + "SetSpawn Error:");
-                    p.sendMessage("SPAWN IS NOT SET!!!");
-                    p.sendMessage("If you are Administrator, you can set spawn using /setspawn.");
-                }else{
-                    p.teleport(spawn);
+                if(spawn != null){
+                    player.teleport(spawn);
                 }
             }else{
-                if(!p.hasPlayedBefore()){
+                if(!player.hasPlayedBefore()){
                     Location spawn = plugin.getSpawnLocation("default");
                     if(spawn == null){
-                        p.sendMessage(ChatColor.RED + "SetSpawn Error:");
-                        p.sendMessage("SPAWN IS NOT SET!!!");
-                        p.sendMessage("If you are Administrator, you can set spawn using /setspawn.");
-                    }else{
-                        p.teleport(spawn);
+                        player.teleport(spawn);
                     }
                 }
             }
