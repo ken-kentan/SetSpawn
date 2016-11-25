@@ -14,28 +14,6 @@ import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.scheduler.BukkitTask;
 import pl.artur9010.setspawn.SetSpawnPlugin;
 
-/*
-Dioricie nasz,
-któryś jest w javie:
-święć się bugi Twoje,
-przyjdź leaki Twoje,
-bądź Twój kod jako na gicie,
-tak i na dysku.
-Repo naszego powszedniego
-daj nam dzisiaj.
-I odpuść nam nasze kretynizmy,
-jako i my odpuszczamy naszym collobatorom.
-I nie wódź nas na memory leaki,
-ale nas zbaw od JavaScriptu.
-
-Enter.
-
-====
-#onlydiorite
-http://diorite.org/
-====
- */
-
 //TODO: little rewrite ;)
 
 public class TeleportCancelListener implements Listener {

@@ -7,28 +7,6 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import pl.artur9010.setspawn.SetSpawnPlugin;
 
-/*
-Dioricie nasz,
-któryś jest w javie:
-święć się bugi Twoje,
-przyjdź leaki Twoje,
-bądź Twój kod jako na gicie,
-tak i na dysku.
-Repo naszego powszedniego
-daj nam dzisiaj.
-I odpuść nam nasze kretynizmy,
-jako i my odpuszczamy naszym collobatorom.
-I nie wódź nas na memory leaki,
-ale nas zbaw od JavaScriptu.
-
-Enter.
-
-====
-#onlydiorite
-http://diorite.org/
-====
- */
-
 /**
  * Created by artur9010 on 07.05.16.
  */
@@ -43,16 +21,35 @@ public class SetSpawnCommand implements CommandExecutor {
         plugin.getCommand("setspawn").setExecutor(this);
     }
 
+    //todo: multispawns support
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-        if(!(sender instanceof Player)){
-            sender.sendMessage("This command can be executed only by player.");
+        if (args.length == 1 && args[0].equalsIgnoreCase("reload")) { //Reload
+            //todo: permissions
+            if (!(sender instanceof Player) || sender.hasPermission("setspawn.reload") || sender.isOp()) {
+                sender.sendMessage("[SetSpawn] Configuration reloaded.");
+                plugin.cm.save("spawn");
+                plugin.cm.loadAll();
+                return true;
+            }
+        } else {
+            if (!(sender instanceof Player)) {
+                sender.sendMessage("This command can be executed only by player.");
+                return true;
+            }
+
+            Player p = (Player) sender;
+            Location l = p.getLocation();
+            String spawnName;
+            if(args.length == 1){
+                spawnName = args[0].toLowerCase();
+            }else{
+                spawnName = "default";
+            }
+            plugin.setSpawnLocation(spawnName, l.getWorld().getName(), l.getX(), l.getY(), l.getZ(), l.getYaw(), l.getPitch());
+            p.sendMessage(plugin.getMessage("messages.spawnset"));
             return true;
         }
 
-        Player p = (Player) sender;
-        p.sendMessage(plugin.getMessage("messages.spawnset"));
-        Location l = p.getLocation();
-        plugin.setSpawnLocation(l.getWorld().getName(), l.getX(), l.getY(), l.getZ(), l.getYaw(), l.getPitch());
         return true;
     }
 }

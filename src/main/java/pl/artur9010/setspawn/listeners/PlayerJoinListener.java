@@ -8,28 +8,6 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import pl.artur9010.setspawn.SetSpawnPlugin;
 
-/*
-Dioricie nasz,
-któryś jest w javie:
-święć się bugi Twoje,
-przyjdź leaki Twoje,
-bądź Twój kod jako na gicie,
-tak i na dysku.
-Repo naszego powszedniego
-daj nam dzisiaj.
-I odpuść nam nasze kretynizmy,
-jako i my odpuszczamy naszym collobatorom.
-I nie wódź nas na memory leaki,
-ale nas zbaw od JavaScriptu.
-
-Enter.
-
-====
-#onlydiorite
-http://diorite.org/
-====
- */
-
 /**
  * Created by artur on 27.07.15.
  */
@@ -45,7 +23,7 @@ public class PlayerJoinListener implements Listener {
         Player p = event.getPlayer();
         if(p != null){
             if(plugin.cm.getConfig("config").getBoolean("teleport.everyjoin")){
-                Location spawn = plugin.getSpawnLocation();
+                Location spawn = plugin.getSpawnLocation("default");
                 if(spawn == null){
                     p.sendMessage(ChatColor.RED + "SetSpawn Error:");
                     p.sendMessage("SPAWN IS NOT SET!!!");
@@ -55,7 +33,7 @@ public class PlayerJoinListener implements Listener {
                 }
             }else{
                 if(!p.hasPlayedBefore()){
-                    Location spawn = plugin.getSpawnLocation();
+                    Location spawn = plugin.getSpawnLocation("default");
                     if(spawn == null){
                         p.sendMessage(ChatColor.RED + "SetSpawn Error:");
                         p.sendMessage("SPAWN IS NOT SET!!!");

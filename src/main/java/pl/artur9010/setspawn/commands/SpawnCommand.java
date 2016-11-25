@@ -9,28 +9,6 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import pl.artur9010.setspawn.SetSpawnPlugin;
 
-/*
-Dioricie nasz,
-któryś jest w javie:
-święć się bugi Twoje,
-przyjdź leaki Twoje,
-bądź Twój kod jako na gicie,
-tak i na dysku.
-Repo naszego powszedniego
-daj nam dzisiaj.
-I odpuść nam nasze kretynizmy,
-jako i my odpuszczamy naszym collobatorom.
-I nie wódź nas na memory leaki,
-ale nas zbaw od JavaScriptu.
-
-Enter.
-
-====
-#onlydiorite
-http://diorite.org/
-====
- */
-
 /**
  * Created by artur9010 on 07.05.16.
  */
@@ -47,15 +25,14 @@ public class SpawnCommand implements CommandExecutor {
 
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         if (!(sender instanceof Player)) {
-            sender.sendMessage("This command can be executed only by player.");
+            sender.sendMessage(plugin.getMessage("messages.error.onlyplayer"));
             return true;
         }
 
         Player p = (Player) sender;
-        Location spawn = plugin.getSpawnLocation();
+        Location spawn = plugin.getSpawnLocation("default");
         if (spawn == null) {
-            p.sendMessage("[Error] Spawn is not set.");
-            p.sendMessage("If you are Administrator, you can set spawn using /setspawn.");
+            p.sendMessage("Please set spawn point using /setspawn. Thanks :)");
             return true;
         }
         if (plugin.cm.getConfig("config").getBoolean("teleport.cooldown_enabled")) {

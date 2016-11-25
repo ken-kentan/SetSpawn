@@ -13,28 +13,7 @@ import pl.artur9010.setspawn.commands.SetSpawnCommand;
 import pl.artur9010.setspawn.commands.RspawnCommand;
 
 import java.io.IOException;
-
-/*
-Dioricie nasz,
-któryś jest w javie:
-święć się bugi Twoje,
-przyjdź leaki Twoje,
-bądź Twój kod jako na gicie,
-tak i na dysku.
-Repo naszego powszedniego
-daj nam dzisiaj.
-I odpuść nam nasze kretynizmy,
-jako i my odpuszczamy naszym collobatorom.
-I nie wódź nas na memory leaki,
-ale nas zbaw od JavaScriptu.
-
-Enter.
-
-====
-#onlydiorite
-http://diorite.org/
-====
- */
+import java.util.HashMap;
 
 /**
  * Created by artur on 26.07.15.
@@ -42,6 +21,7 @@ http://diorite.org/
  * @author artur9010
  * @url http://artur9010.pl/
  */
+
 public class SetSpawnPlugin extends JavaPlugin{
     protected static SetSpawnPlugin plugin;
     public TeleportCancelListener teleportCancelListener;
@@ -51,21 +31,16 @@ public class SetSpawnPlugin extends JavaPlugin{
 
     SpawnCommand spawnCommand;
     SetSpawnCommand setSpawnCommand;
-    RspawnCommand rspawnCommand;
+    //RspawnCommand rspawnCommand; //replaced with /setspawn reload
 
     public void onEnable() {
-        System.console().printf("===[ SetSpawn v2.2.2 by artur9010 ]===\n");
-        System.console().printf("Thanks for downloading SetSpawn!\n");
-        System.console().printf("http://dev.bukkit.org/bukkit-plugins/setspawn\n");
-        System.console().printf("=====================================\n");
-
         plugin = this;
         teleportCancelListener = new TeleportCancelListener(this);
         playerJoinListener = new PlayerJoinListener(this);
 
         spawnCommand = new SpawnCommand(this);
         setSpawnCommand = new SetSpawnCommand(this);
-        rspawnCommand = new RspawnCommand(this);
+        //rspawnCommand = new RspawnCommand(this);
 
         cm = new ConfigsManager(this);
         cm.registerConfig("config", "config.yml");
@@ -84,28 +59,28 @@ public class SetSpawnPlugin extends JavaPlugin{
         return cm.getConfig("messages").getString(patch).replaceAll("&", "" + ChatColor.COLOR_CHAR);
     }
 
-    public Location getSpawnLocation(){
+    public Location getSpawnLocation(String name){
         ConfigsManager.RConfig spawnCfg = cm.getConfig("spawn");
-        if(spawnCfg.getString("world") == null)
+        if(spawnCfg.getString(name + ".world") == null)
             return null;
         Location spawn = new Location(null, 0, 0, 0);
-        spawn.setX(spawnCfg.getDouble("x"));
-        spawn.setY(spawnCfg.getDouble("y"));
-        spawn.setZ(spawnCfg.getDouble("z"));
-        spawn.setWorld(Bukkit.getWorld(spawnCfg.getString("world")));
-        spawn.setYaw(spawnCfg.getInt("yaw"));
-        spawn.setPitch(spawnCfg.getInt("pitch"));
+        spawn.setX(spawnCfg.getDouble(name + ".x"));
+        spawn.setY(spawnCfg.getDouble(name + ".y"));
+        spawn.setZ(spawnCfg.getDouble(name + ".z"));
+        spawn.setWorld(Bukkit.getWorld(spawnCfg.getString(name + ".world")));
+        spawn.setYaw(spawnCfg.getInt(name + ".yaw"));
+        spawn.setPitch(spawnCfg.getInt(name + ".pitch"));
         return spawn;
     }
 
-    public void setSpawnLocation(String world, double x, double y, double z, float yaw, float pitch){
+    public void setSpawnLocation(String name, String world, double x, double y, double z, float yaw, float pitch){
         ConfigsManager.RConfig spawnCfg = cm.getConfig("spawn");
-        spawnCfg.set("world", world);
-        spawnCfg.set("x", x);
-        spawnCfg.set("y", y);
-        spawnCfg.set("z", z);
-        spawnCfg.set("yaw", yaw);
-        spawnCfg.set("pitch", pitch);
+        spawnCfg.set(name + ".world", world);
+        spawnCfg.set(name + ".x", x);
+        spawnCfg.set(name + ".y", y);
+        spawnCfg.set(name + ".z", z);
+        spawnCfg.set(name + ".yaw", yaw);
+        spawnCfg.set(name + ".pitch", pitch);
         try {
             spawnCfg.save();
         } catch (IOException e) {
@@ -113,6 +88,7 @@ public class SetSpawnPlugin extends JavaPlugin{
         }
     }
 
+    //todo: rewrite?
     public static void teleportPlayerWithDelay(final Player player, long l, final Location location, final String messageAfterTp, final Runnable postTeleport){
         if (plugin.teleportCancelListener.playerTeleportLocation.get(player) != null) {
             plugin.teleportCancelListener.playerTeleportLocation.remove(player);
