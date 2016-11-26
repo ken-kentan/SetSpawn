@@ -1,7 +1,7 @@
 author: artur9010
 name: SetSpawn
 main: pl.artur9010.setspawn.SetSpawnPlugin
-version: 2.4
+version: 3.0
 website: http://artur9010.pl/
 database: false
 

@@ -6,3 +6,4 @@ messages:
     error:
       onlyplayer: "This command can be executed only by player."
       onlyconsole: "This command can be executed only from server console."
+      spawndosentexist: "That spawn dosen't exist"

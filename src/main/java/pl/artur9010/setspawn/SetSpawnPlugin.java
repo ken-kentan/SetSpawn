@@ -2,7 +2,9 @@ package pl.artur9010.setspawn;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Effect;
 import org.bukkit.Location;
+import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitTask;
@@ -10,11 +12,9 @@ import pl.artur9010.setspawn.listeners.PlayerJoinListener;
 import pl.artur9010.setspawn.listeners.TeleportCancelListener;
 import pl.artur9010.setspawn.commands.SpawnCommand;
 import pl.artur9010.setspawn.commands.SetSpawnCommand;
-import pl.artur9010.setspawn.commands.RspawnCommand;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -35,7 +35,6 @@ public class SetSpawnPlugin extends JavaPlugin{
 
     SpawnCommand spawnCommand;
     SetSpawnCommand setSpawnCommand;
-    //RspawnCommand rspawnCommand; //replaced with /setspawn reload
 
     public void onEnable() {
         plugin = this;
@@ -44,11 +43,11 @@ public class SetSpawnPlugin extends JavaPlugin{
 
         spawnCommand = new SpawnCommand(this);
         setSpawnCommand = new SetSpawnCommand(this);
-        //rspawnCommand = new RspawnCommand(this);
 
         bannedSpawnpointNames.add("reload"); //because of /setspawn reload
         bannedSpawnpointNames.add("list"); //because of /spawn list
         bannedSpawnpointNames.add("delete"); //because of /setspawn delete
+        bannedSpawnpointNames.add("other"); //because of setspawn.spawn.other
 
         cm = new ConfigsManager(this);
         cm.registerConfig("config", "config.yml");
@@ -64,7 +63,8 @@ public class SetSpawnPlugin extends JavaPlugin{
     }
 
     public String getMessage(String patch){
-        return cm.getConfig("messages").getString(patch).replaceAll("&", "" + ChatColor.COLOR_CHAR);
+        //return cm.getConfig("messages").getString(patch).replaceAll("&", "" + ChatColor.COLOR_CHAR);
+        return ChatColor.translateAlternateColorCodes('&', cm.getConfig("messages").getString(patch));
     }
 
     public Location getSpawnLocation(String name){
@@ -94,6 +94,17 @@ public class SetSpawnPlugin extends JavaPlugin{
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public void teleport(String spawnpoint, Player player, Boolean wait, Boolean play){
+        //todo: write
+    }
+
+    public boolean spawnExists(String spawnpoint){
+        ConfigsManager.RConfig spawnCfg = cm.getConfig("spawn");
+        if(spawnCfg.getString(spawnpoint + ".world") == null)
+            return false;
+        return true;
     }
 
     //todo: rewrite?

@@ -27,25 +27,36 @@ public class SpawnCommand implements CommandExecutor {
         Player player; //player to be teleported
         Location spawnLocation; //location of spawn point
         String spawn = "default";
+        boolean wait;
         if(args.length == 0){
             if(sender instanceof Player){
                 player = (Player) sender;
                 spawnLocation = plugin.getSpawnLocation(spawn);
                 if(spawnLocation == null){
-                    player.sendMessage("that spawnpoint dosent exist"); //todo: plugin message
+                    player.sendMessage(plugin.getMessage("messages.error.spawndosentexist"));
                     return true;
                 }
-                //todo: teleport yourself to default spawnpoint
+
+                if(player.hasPermission("setspawn.nowait") || player.isOp())
+                    wait = false;
+                else
+                    wait = true;
+                plugin.teleport(spawn, player, wait, true);
             }else{
                 sender.sendMessage(plugin.getMessage("messages.error.onlyplayer"));
             }
         }else if(args.length == 1){
             if(args[0].equalsIgnoreCase("list")){
                 //todo: display list of avaiable spawnpoints
-                return true;
+                sender.sendMessage("...");
+            }else if(!plugin.bannedSpawnpointNames.contains(args[0].toLowerCase())){
+                if(sender instanceof Player){
+                    player = (Player) sender;
+
+                }
+            }else{
+                sender.sendMessage("unknown action"); //todo: plugin message
             }
-            //spawn spawnpoint
-            //todo: teleport yourself to diffrent spawnpoint
         }else if(args.length == 2){
             //spawn spawnpoint player
             //todo: teleport other player to diffrent spawnpoint

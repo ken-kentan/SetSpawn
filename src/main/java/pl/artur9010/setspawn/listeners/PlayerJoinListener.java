@@ -20,19 +20,12 @@ public class PlayerJoinListener implements Listener {
 
     @EventHandler
     public void onJoin(PlayerJoinEvent event){
-        Player player = event.getPlayer();
-        if(player != null){
+        if(event.getPlayer() != null){
             if(plugin.cm.getConfig("config").getBoolean("teleport.everyjoin")){
-                Location spawn = plugin.getSpawnLocation("default");
-                if(spawn != null){
-                    player.teleport(spawn);
-                }
+                plugin.teleport("default", event.getPlayer(), false, false);
             }else{
-                if(!player.hasPlayedBefore()){
-                    Location spawn = plugin.getSpawnLocation("default");
-                    if(spawn == null){
-                        player.teleport(spawn);
-                    }
+                if(!event.getPlayer().hasPlayedBefore()){
+                    plugin.teleport("default", event.getPlayer(), false, false);
                 }
             }
         }

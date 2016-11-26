@@ -14,7 +14,7 @@ import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.scheduler.BukkitTask;
 import pl.artur9010.setspawn.SetSpawnPlugin;
 
-//TODO: little rewrite ;)
+//TODO: "little" rewrite ;)
 
 public class TeleportCancelListener implements Listener {
     SetSpawnPlugin plugin;
