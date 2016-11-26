@@ -14,15 +14,19 @@
 
 ## Configuration
 ```yaml
+#SetSpawn by artur9010
+
+# Sound list: https://hub.spigotmc.org/javadocs/spigot/org/bukkit/Sound.html
+# Effect list: https://hub.spigotmc.org/javadocs/spigot/org/bukkit/Effect.html
+# SOUND/EFFECT - USE "false" TO DISABLE
+
 teleport:
     cooldown: 5
     cooldown_enabled: false
     everyjoin: false
     sound:
-      enabled: false
       sound: ENTITY_PLAYER_LEVELUP
     effect:
-      enabled: false
       effect: SMOKE
       power: 6
 messages:

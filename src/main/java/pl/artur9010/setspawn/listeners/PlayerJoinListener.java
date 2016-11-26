@@ -14,17 +14,17 @@ import pl.artur9010.setspawn.SetSpawnPlugin;
 public class PlayerJoinListener implements Listener {
     SetSpawnPlugin plugin;
 
-    public PlayerJoinListener(SetSpawnPlugin plugin){
+    public PlayerJoinListener(SetSpawnPlugin plugin) {
         this.plugin = plugin;
     }
 
     @EventHandler
-    public void onJoin(PlayerJoinEvent event){
-        if(event.getPlayer() != null){
-            if(plugin.cm.getConfig("config").getBoolean("teleport.everyjoin")){
+    public void onJoin(PlayerJoinEvent event) {
+        if (event.getPlayer() != null) {
+            if (plugin.cm.getConfig("config").getBoolean("teleport.everyjoin")) {
                 plugin.teleport("default", event.getPlayer(), false, false);
-            }else{
-                if(!event.getPlayer().hasPlayedBefore()){
+            } else {
+                if (!event.getPlayer().hasPlayedBefore()) {
                     plugin.teleport("default", event.getPlayer(), false, false);
                 }
             }

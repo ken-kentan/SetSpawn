@@ -40,9 +40,9 @@ public class SetSpawnCommand implements CommandExecutor {
             Player p = (Player) sender;
             Location l = p.getLocation();
             String spawnName;
-            if(args.length == 1){
+            if (args.length == 1) {
                 spawnName = args[0].toLowerCase();
-            }else{
+            } else {
                 spawnName = "default";
             }
             plugin.setSpawnLocation(spawnName, l.getWorld().getName(), l.getX(), l.getY(), l.getZ(), l.getYaw(), l.getPitch());

@@ -16,10 +16,6 @@ commands:
     description: Set spawn
     permission: setspawn.setspawn
     usage: setspawn
-  rspawn:
-      description: Reload SetSpawn
-      permission: setspawn.rspawn
-      usage: rspawn
 
 permissions:
   setspawn.*:

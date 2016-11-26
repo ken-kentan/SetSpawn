@@ -3,7 +3,9 @@ package pl.artur9010.setspawn.listeners;
 /**
  * Created by artur on 26.07.15.
  */
+
 import java.util.HashMap;
+
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -20,18 +22,18 @@ public class TeleportCancelListener implements Listener {
     SetSpawnPlugin plugin;
     public HashMap<Player, BukkitTask> playerTeleportLocation = new HashMap<>();
 
-    public TeleportCancelListener(SetSpawnPlugin plugin){
+    public TeleportCancelListener(SetSpawnPlugin plugin) {
         this.plugin = plugin;
         this.plugin.getServer().getPluginManager().registerEvents(this, this.plugin);
     }
 
-    @EventHandler(priority=EventPriority.HIGHEST, ignoreCancelled=true)
-    public void onPlayerMove(PlayerMoveEvent event){
+    @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
+    public void onPlayerMove(PlayerMoveEvent event) {
         Location from = event.getFrom();
         Location to = event.getTo();
         if ((from.getBlockX() != to.getBlockX()) || (from.getBlockY() != to.getBlockY()) || (from.getBlockZ() != to.getBlockZ()) || (from.getWorld() != to.getWorld())) {
             Player player = event.getPlayer();
-            if (this.playerTeleportLocation.get(player) != null){
+            if (this.playerTeleportLocation.get(player) != null) {
                 (this.playerTeleportLocation.remove(player)).cancel();
                 player.sendMessage(plugin.getMessage("messages.canceled"));
             }
@@ -40,11 +42,11 @@ public class TeleportCancelListener implements Listener {
         }
     }
 
-    @EventHandler(priority=EventPriority.HIGHEST, ignoreCancelled=true)
-    public void onPlayerDamage(EntityDamageEvent event){
-        if ((event.getEntity() instanceof Player)){
-            Player player = (Player)event.getEntity();
-            if (this.playerTeleportLocation.get(player) != null){
+    @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
+    public void onPlayerDamage(EntityDamageEvent event) {
+        if ((event.getEntity() instanceof Player)) {
+            Player player = (Player) event.getEntity();
+            if (this.playerTeleportLocation.get(player) != null) {
                 (this.playerTeleportLocation.remove(player)).cancel();
                 player.sendMessage(plugin.getMessage("messages.canceled"));
             }

@@ -1,8 +1,7 @@
 package pl.artur9010.setspawn.commands;
 
-import org.bukkit.Effect;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
-import org.bukkit.Sound;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -28,71 +27,61 @@ public class SpawnCommand implements CommandExecutor {
         Location spawnLocation; //location of spawn point
         String spawn = "default";
         boolean wait;
-        if(args.length == 0){
-            if(sender instanceof Player){
+        if (args.length == 0) {
+            if (sender instanceof Player) {
                 player = (Player) sender;
                 spawnLocation = plugin.getSpawnLocation(spawn);
-                if(spawnLocation == null){
+                if (plugin.spawnExists(spawn)) {
+                    if (player.hasPermission("setspawn.nowait") || player.isOp())
+                        wait = false;
+                    else
+                        wait = true;
+                    plugin.teleport(spawn, player, wait, true);
+
+                } else {
                     player.sendMessage(plugin.getMessage("messages.error.spawndosentexist"));
                     return true;
                 }
-
-                if(player.hasPermission("setspawn.nowait") || player.isOp())
-                    wait = false;
-                else
-                    wait = true;
-                plugin.teleport(spawn, player, wait, true);
-            }else{
+            } else {
                 sender.sendMessage(plugin.getMessage("messages.error.onlyplayer"));
             }
-        }else if(args.length == 1){
-            if(args[0].equalsIgnoreCase("list")){
+        } else if (args.length == 1) {
+            if (args[0].equalsIgnoreCase("list")) {
                 //todo: display list of avaiable spawnpoints
                 sender.sendMessage("...");
-            }else if(!plugin.bannedSpawnpointNames.contains(args[0].toLowerCase())){
-                if(sender instanceof Player){
+            } else if (!plugin.bannedSpawnpointNames.contains(args[0].toLowerCase())) {
+                if (sender instanceof Player) {
                     player = (Player) sender;
-
+                    spawn = args[0];
+                    if (plugin.spawnExists(spawn)) {
+                        if (player.hasPermission("setspawn.nowait") || player.isOp())
+                            wait = false;
+                        else
+                            wait = true;
+                        plugin.teleport(spawn, player, wait, true);
+                    } else {
+                        player.sendMessage(plugin.getMessage("messages.error.spawndosentexist"));
+                        return true;
+                    }
                 }
-            }else{
+            } else {
                 sender.sendMessage("unknown action"); //todo: plugin message
             }
-        }else if(args.length == 2){
-            //spawn spawnpoint player
-            //todo: teleport other player to diffrent spawnpoint
-        }
-        //Some cancer code!
-        /*
-        Player p = (Player) sender;
-        Location spawn = plugin.getSpawnLocation("default");
-        if (spawn == null) {
-            p.sendMessage("Please set spawn point using /setspawn. Thanks :)");
-            return true;
-        }
-        if (plugin.cm.getConfig("config").getBoolean("teleport.cooldown_enabled")) {
-            p.sendMessage(plugin.getMessage("messages.pleasewait").replaceAll("\\{1\\}", "" + plugin.cm.getConfig("config").getLong("teleport.cooldown")));
-            if (plugin.cm.getConfig("config").getBoolean("messages.spawn")) {
-                plugin.teleportPlayerWithDelay(p, plugin.cm.getConfig("config").getLong("teleport.cooldown"), spawn, plugin.getMessage("messages.spawn"), null);
-            } else {
-                plugin.teleportPlayerWithDelay(p, plugin.cm.getConfig("config").getLong("teleport.cooldown"), spawn, null, null);
+        } else if (args.length == 2) {
+            if (sender.hasPermission("setspawn.spawn.other")) {
+                player = Bukkit.getPlayer(args[1]);
+                if (player != null) {
+                    if (plugin.spawnExists(args[0])) {
+                        spawn = args[0];
+                        plugin.teleport(spawn, player, false, false);
+                    } else {
+                        sender.sendMessage(plugin.getMessage("messages.error.spawndosentexist"));
+                    }
+                } else {
+                    sender.sendMessage("player is offline"); //todo: plugin message
+                }
             }
-        } else {
-            if (plugin.cm.getConfig("config").getBoolean("messages.spawn")) {
-                p.sendMessage(plugin.getMessage("messages.spawn"));
-            }
-            p.teleport(spawn);
         }
-        Location loc = p.getLocation();
-
-        if (plugin.cm.getConfig("config").getBoolean("teleport.effect.enabled")) {
-            p.playEffect(loc, Effect.valueOf(plugin.cm.getConfig("config").getString("teleport.effect.effect")), plugin.cm.getConfig("config").getInt("teleport.effect.power"));
-        }
-
-        if (plugin.cm.getConfig("config").getBoolean("teleport.sound.enabled")) {
-            p.playSound(loc, Sound.valueOf(plugin.cm.getConfig("config").getString("teleport.sound.sound")), 1.0F, 0.0F);
-        }
-        return true;*/
-
-        return true; //todo: remove
+        return true;
     }
 }
